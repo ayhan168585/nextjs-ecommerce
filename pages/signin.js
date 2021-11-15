@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState, useContext,useEffect } from "react";
 import { DataContext } from "../store/GlobalState";
 import { postData } from "../utils/fetchData";
 import Cookie from "js-cookie"
+import {useRouter} from "next/router"
 
 const Signin = () => {
   const initialState = {
@@ -14,6 +15,9 @@ const Signin = () => {
   const {email, password} = userData;
 
   const { state, dispatch } = useContext(DataContext);
+  const {auth}=state
+
+  const router=useRouter()
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -41,8 +45,12 @@ const Signin = () => {
       path:'"api/auth/accessToken',
       expires:7
     })
-    localStorage.setItem('firstLogin')
+   
+    localStorage.setItem('firstLogin',true)
   };
+  useEffect(()=>{
+if(Object.keys(auth).length !==0) router.push("/")
+  },[auth])
   return (
     <div>
       <Head>
