@@ -49,9 +49,11 @@ function Navbar() {
           {auth.user.name}
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">
+          <Link  href="/profile">
+          <a className="dropdown-item">
             Profile
           </a>
+          </Link>
           <button className="dropdown-item" onClick={handleLogout}>
             Logout
           </button>

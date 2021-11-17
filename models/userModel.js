@@ -24,7 +24,7 @@ const userSchema=new mongoose.Schema({
     },
     avatar:{
         type:String,
-        default:"https://res.cloudinary.com/dh70tt9xs/image/upload/v1636027291/test/user-member-avatar-face-profile-icon-vector-22965342-300x300_rgyciv.jpg"
+        default:"https://res.cloudinary.com/dh70tt9xs/image/upload/v1637085329/user_tujfi8.jpg"
     },
 
 },{
