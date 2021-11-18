@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { DataContext } from "../store/GlobalState";
 import valid from "../utils/valid"
 import { patchData } from "../utils/fetchData";
-import { imageUpload } from "../utils/ImageUpload";
+import { imageUpload } from "../utils/imageUpload";
 
 const Profile = () => {
   const initialState = {
@@ -53,7 +53,7 @@ const Profile = () => {
     const file=e.target.files[0]
     if(!file) return dispatch({type:'NOTIFY',payload:{error:'File does not exist'}})
     if(file.size>1024*1024) //1mb 
-     return dispatch({type:'NOTIFY',payload:{error:'The largest image size is 5mb'}})
+     return dispatch({type:'NOTIFY',payload:{error:'The largest image size is 1mb'}})
      if(file.type!=="image/jpeg" && file.type!=="image/png")
      return dispatch({type:'NOTIFY',payload:{error:'Image is incorrect format'}})
      setData({...data,avatar:file})
@@ -64,6 +64,16 @@ const Profile = () => {
     let media
     dispatch({type:'NOTIFY',payload:{loading:true}})
     if(avatar) media =await imageUpload([avatar])
+    patchData('user', {
+      name, avatar: avatar ? media[0].url : auth.user.avatar
+    },auth.token).then(res=> {
+      if(res.err) return dispatch({type:'NOTIFY',payload:{error:res.err}})
+      dispatch({type:'AUTH',payload:{
+        token:auth.token,
+        user:res.user
+      }})
+      return dispatch({type:'NOTIFY',payload:{success:res.msg}})
+    })
   }
 
   if (!auth.user) return null;

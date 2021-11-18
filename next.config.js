@@ -7,6 +7,6 @@ module.exports={
         "PAYPAL_CLIENT_ID":"AWrktSXIXgXUyChVDtk3JPSLu209b2mnl7gw5PP7mH5cqirK8IVJJA0-Vu7XHxyq2WMsJoG3xA5Cvd0K",
         "CLOUD_UPDATE_PRESET":"nextjs_store",
         "CLOUD_NAME":"dh70tt9xs",
-        "CLOUD_API":"http://res.cloudinary.com/dh70tt9xs/image/upload"
+        "CLOUD_API":"https://api.cloudinary.com/v1_1/dh70tt9xs/image/upload"
    }
 }
