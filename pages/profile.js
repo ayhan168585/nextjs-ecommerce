@@ -144,7 +144,22 @@ const Profile = () => {
           </button>
         </div>
         <div className="col-md-8">
-          <h3>Orders</h3>
+          <h3 className='text-uppercase'>Orders</h3>
+          <div className="my-3">
+            <table className='table-bordered table-hover w-100 text-uppercase'
+            style={{minWidth:'600px'}}>
+              <thead>
+                <tr>
+                  <td className='p-2'>id</td>
+                  <td className='p-2'>date</td>
+                  <td className='p-2'>total</td>
+                  <td className='p-2'>delivered</td>
+                  <td className='p-2'>action</td>
+              </tr>
+              </thead>
+
+            </table>
+          </div>
         </div>
       </section>
     </div>
