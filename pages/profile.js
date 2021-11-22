@@ -161,7 +161,7 @@ const Profile = () => {
               <tbody>
                 {
                   orders.map(order=>(
-                    <tr>
+                    <tr key={order._id}>
                     <td className='p-2'>{order._id}</td>
                     <td className='p-2'>{new Date(order.createdAt).toLocaleDateString()}</td>
                     <td className='p-2'>$ {order.total}</td>
