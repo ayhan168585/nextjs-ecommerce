@@ -4,6 +4,7 @@ import { DataContext } from "../store/GlobalState";
 import valid from "../utils/valid"
 import { patchData } from "../utils/fetchData";
 import { imageUpload } from "../utils/imageUpload";
+import Link from "next/link"
 
 const Profile = () => {
   const initialState = {
@@ -18,7 +19,7 @@ const Profile = () => {
   const { avatar, name, password, cf_password } = data;
 
   const { state, dispatch } = useContext(DataContext);
-  const { auth, notify } = state;
+  const { auth, notify,orders } = state;
 
   useEffect(() => {
     if (auth.user) setData({ ...data, name: auth.user.name });
@@ -147,7 +148,7 @@ const Profile = () => {
           <h3 className='text-uppercase'>Orders</h3>
           <div className="my-3">
             <table className='table-bordered table-hover w-100 text-uppercase'
-            style={{minWidth:'600px'}}>
+            style={{minWidth:'600px',cursor:"pointer"}}>
               <thead>
                 <tr>
                   <td className='p-2'>id</td>
@@ -157,6 +158,30 @@ const Profile = () => {
                   <td className='p-2'>action</td>
               </tr>
               </thead>
+              <tbody>
+                {
+                  orders.map(order=>(
+                    <tr>
+                    <td className='p-2'>{order._id}</td>
+                    <td className='p-2'>{new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td className='p-2'>$ {order.total}</td>
+                    <td className='p-2'>
+                      {
+                        order.delivered
+                        ? <i className="fas fa-checked text-success"></i>
+                        : <i className="fas fa-times text-danger"></i>
+                        
+                      }
+                    </td>
+                    <td className='p-2'>
+                      <Link href={`/order/${order._id}`}>
+                        <a>details</a>
+                      </Link>
+                    </td>
+                </tr>
+                  ))
+                }
+              </tbody>
 
             </table>
           </div>
