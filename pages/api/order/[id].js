@@ -2,7 +2,6 @@
 import connectDB from "../../../utils/connectDB";
 import Orders from "../../../models/orderModel"
 import auth from "../../../middleware/auth"
-import Products from "../../../models/productModel"
 
 
 connectDB()
@@ -20,7 +19,10 @@ const paymentOrder=async (req,res)=>{
 try {
     const result=await auth(req,res)
     const {id}=req.query
-    
+    await Orders.findOneAndUpdate({_id:id},{
+        paid:true,dateOfPayment:new Date().toISOString()
+    })
+    res.json({msg:'Payment success'})
 } catch (err) {
     return res.status(500).json({err:err.message})
 }

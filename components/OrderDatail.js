@@ -22,8 +22,7 @@ const OrderDetail=({orderDetail})=>{
                 role="alert"
               >
                 {order.delivered
-                  ? `Delivered on ${new Date(order.updatedAt).toLocaleDateString() }  ${new Date(order.updatedAt).toLocaleTimeString()}`
-                  : "Not Delivered"}
+                  ? `Delivered on ${order.updatedAt}`: "Not Delivered"}
               </div>
               <h3>Payment</h3>
               <div
@@ -33,8 +32,7 @@ const OrderDetail=({orderDetail})=>{
                 role="alert"
               >
                 {order.paid
-                  ? `Paid on ${new Date(order.dateOfPayment).toLocaleDateString() }  ${new Date(order.updatedAt).toLocaleTimeString()}`
-                  : "Not Paid"}
+                  ? `Paid on ${order.dateOfPayment}`: "Not Paid"}
               </div>
               <div>
                 <h4>Order Items</h4>
@@ -57,10 +55,14 @@ const OrderDetail=({orderDetail})=>{
               </div>
             </div>
           </div>
-          <div className="p-4">
-              <h2 className='mb-4 text-uppercase'>Total : $ {order.total}</h2>
-              <PaypalBtn order={order}/>
-          </div>
+          {
+            !order.paid && 
+            <div className="p-4">
+            <h2 className='mb-4 text-uppercase'>Total : $ {order.total}</h2>
+            <PaypalBtn order={order}/>
+        </div>
+          }
+         
           </div>
         ))}
       

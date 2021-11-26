@@ -1,11 +1,12 @@
 import { useEffect,useRef,useContext } from "react"
-import {postData} from "../utils/fetchData"
+import {patchData} from "../utils/fetchData"
 import { DataContext } from "../store/GlobalState"
+import { updateItem } from "../store/Actions"
 
 const paypalBtn=({order})=>{
     const refPaypalBtn=useRef()
     const {state,dispatch}=useContext(DataContext)
-    const {cart,auth,orders}=state
+    const {auth,orders}=state
 
     useEffect(()=>{
         paypal.Buttons({
@@ -23,20 +24,17 @@ const paypalBtn=({order})=>{
               // This function captures the funds from the transaction.
               return actions.order.capture().then(function(details) {
                
-                // postData('order',{address,mobile,cart,total},auth.token)
-                // .then(res=>{
-                //   if(res.err) return dispatch({type:'NOTIFY',payload:{error:res.err}})
-                //   dispatch({type:'ADD_CART',payload:[]})
+                patchData(`order/${order._id}`,null,auth.token)
+                .then(res=>{
+                  if(res.err) return dispatch({type:'NOTIFY',payload:{error:res.err}})
+                 
+                  dispatch(updateItem(orders,order._id,{
+                    ...order,paid:true,dateOfPayment:new Date().toISOString()
+                  },'ADD_ORDERS'))
 
-                //   const newOrder={
-                //     ...res.newOrder,
-                //     user:auth.user
-                //   }
-                //   dispatch({type:'ADD_ORDERS',payload:[...orders,res.newOrder]})
-
-                //   return dispatch({type:'NOTIFY',payload:{success:res.msg}})
-                // })
-                // This function shows a transaction success message to your buyer.
+                  return dispatch({type:'NOTIFY',payload:{success:res.msg}})
+                })
+                //This function shows a transaction success message to your buyer.
               
               });
             }
