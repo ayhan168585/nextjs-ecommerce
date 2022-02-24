@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../store/GlobalState";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import OrderDetail from "../../components/OrderDatail";
+import OrderDetail from "../../components/OrderDetail";
 
 const DetailOrder = () => {
   const { state, dispatch } = useContext(DataContext);
