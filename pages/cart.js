@@ -16,7 +16,7 @@ const Cart = () => {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
 
-  const[callback,setCallback]=useState()
+  const[callback,setCallback]=useState(false)
 
   const router=useRouter()
 
