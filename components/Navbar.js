@@ -24,6 +24,22 @@ function Navbar() {
     dispatch({ type: "NOTIFY", payload: { success: "Logged out" } });
   };
 
+  const adminRouter = () => {
+    return (
+      <>
+        <Link href="/users">
+          <a className="dropdown-item">Users</a>
+        </Link>
+        <Link href="/create">
+          <a className="dropdown-item">Products</a>
+        </Link>
+        <Link href="/categories">
+          <a className="dropdown-item">Categories</a>
+        </Link>
+      </>
+    );
+  };
+
   const loggedRouter = () => {
     return (
       <li className="nav-item dropdown">
@@ -49,11 +65,11 @@ function Navbar() {
           {auth.user.name}
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <Link  href="/profile">
-          <a className="dropdown-item">
-            Profile
-          </a>
+          <Link href="/profile">
+            <a className="dropdown-item">Profile</a>
           </Link>
+          {auth.user.role === "admin" && adminRouter()}
+          <div className="dropdown-divider"></div>
           <button className="dropdown-item" onClick={handleLogout}>
             Logout
           </button>
@@ -98,7 +114,7 @@ function Navbar() {
                       top: "-10px",
                       right: "-10px",
                       color: "white",
-                      fontSize:"14px"
+                      fontSize: "14px",
                     }}
                   >
                     {cart.length}

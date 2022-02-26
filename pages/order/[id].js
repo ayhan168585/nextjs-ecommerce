@@ -17,6 +17,9 @@ const DetailOrder = () => {
     const newArr = orders.filter((order) => order._id === router.query.id);
     setOrderDetail(newArr);
   }, [orders]);
+
+  if (!auth.user) return null;
+
   return (
     <div className="my-3">
       <Head>
@@ -27,7 +30,7 @@ const DetailOrder = () => {
           <i className="fas fa-long-arrow-alt-left" aria-hidden='true'></i> Go Back
         </button>
       </div>
-      <OrderDetail orderDetail={orderDetail}/>
+      <OrderDetail orderDetail={orderDetail} state={state} dispatch={dispatch}/>
     </div>
   );
 };
