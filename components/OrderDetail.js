@@ -12,7 +12,6 @@ const OrderDetail=({orderDetail,state,dispatch})=>{
     .then(res=>{
       if(res.err) return dispatch({type:'NOTIFY',payload:{error:res.err}})
 
-    console.log(res)
     const {paid,dateOfPayment,method,delivered}=res.result
     dispatch(updateItem(orders,order._id,{
       ...order,paid,dateOfPayment,method,delivered
@@ -21,6 +20,9 @@ const OrderDetail=({orderDetail,state,dispatch})=>{
 
     })
   }
+
+  if (!auth.user) return null;
+
     return(
         <>
         {
@@ -52,8 +54,14 @@ const OrderDetail=({orderDetail,state,dispatch})=>{
                   }
               </div>
               <h3>Payment</h3>
-              <h6>Method: {order.method}</h6>
-              <p>PaymentId: {order.paymentId}</p>
+              {
+                order.method &&  <h6>Method: <em>{order.method}</em></h6>
+              }
+              {
+                order.paymentId && <p>PaymentId: <em>{order.paymentId}</em></p>
+              }
+             
+              
               <div
                 className={`alert ${
                   order.paid ? "alert-success" : "alert-danger"

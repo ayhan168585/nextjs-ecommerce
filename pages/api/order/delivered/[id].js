@@ -24,7 +24,6 @@ try {
     const {id}=req.query
     // const {delivered}=req.body
     const order=await Orders.findOne({_id:id})
-console.log(order)
 
     if(order.paid){
         await Orders.findOneAndUpdate({_id:id},{delivered:true})
