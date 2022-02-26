@@ -25,6 +25,8 @@ const OrderDetail=({orderDetail})=>{
                   ? `Delivered on ${order.updatedAt}`: "Not Delivered"}
               </div>
               <h3>Payment</h3>
+              <h6>Method: {order.method}</h6>
+              <p>PaymentId: {order.paymentId}</p>
               <div
                 className={`alert ${
                   order.paid ? "alert-success" : "alert-danger"
